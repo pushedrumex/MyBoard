@@ -1,6 +1,7 @@
 package dev.myBoard.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Post {
@@ -19,6 +20,9 @@ public class Post {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Column(nullable = false)
+    private Date date;
 
     public Long getId() {
         return id;
@@ -59,4 +63,11 @@ public class Post {
         this.content = content;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date createdDate) {
+        this.date = createdDate;
+    }
 }

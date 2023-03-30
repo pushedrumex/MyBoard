@@ -18,7 +18,6 @@ export default function Main() {
             <table>
                 <thead>
                     <tr>
-                    <th>ID</th>
                     <th>Author</th>
                     <th>Title</th>
                     <th>Date</th>
@@ -27,7 +26,6 @@ export default function Main() {
                 <tbody>
                     {boardList.map((item) => (
                     <tr key={item.id}>
-                        <td>{item.id}</td>
                         <td>{item.author}</td>
                         <td>
                         <Link to={`/detail/${item.id}`} className="post-title">

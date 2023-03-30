@@ -1,6 +1,7 @@
 package dev.myBoard;
 
 import dev.myBoard.repository.PostRepository;
+import dev.myBoard.service.PostService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +14,11 @@ public class SpringConfig {
 
     public SpringConfig(EntityManager em) {
         this.em = em;
+    }
+
+    @Bean
+    public PostService postService() {
+        return new PostService(jpaPostRepository());
     }
 
     @Bean

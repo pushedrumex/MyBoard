@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { redirect, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Write.css';
 
 export default function Write() {
@@ -8,6 +8,7 @@ export default function Write() {
   const [password, setPassword] = useState('');
   const [content, setContent] = useState('');
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -23,10 +24,11 @@ export default function Write() {
     }
   }, [id])
 
-  const modifyPost = (id) => {
-    const post = {title, author, password, content}
+  const modifyPost = (e) => {
+    e.preventDefault();
 
-    fetch(`http://localhost/posts/${id}`, {
+    const post = {id, title, author, password, content, date: new Date()}
+    fetch(`http://localhost:8080/update`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -36,28 +38,29 @@ export default function Write() {
     .then(res => res.json())
     .then(() => {
         alert('수정되었습니다');
-        redirect('/');
+        navigate(`/detail/${id}`);
     })
     .catch((error) => console.error('Error updating post:', error));
 };
 
 
-  const handleSubmit = () => {
-    const data = {title, author, password, content};
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    const data = {title, author, password, content, date: new Date()};
     fetch('http://localhost:8080/posts', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(data),
     })
     .then((res) => res.json())
-    .then((data) => {
-        console.log(data);
+    .then(() => {
         alert('글이 등록되었습니다.');
-        redirect('/');
+        navigate("/");
     })
     .catch((error) => console.log('Error posting : ', error))
-
   };
 
   const buttonText = id ? '수정 완료' : '작성 완료';

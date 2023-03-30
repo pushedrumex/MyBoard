@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Detail.css'
 import Modal from 'react-modal';
-import { redirect, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function Detail() {
     const { id } = useParams();
@@ -54,7 +54,7 @@ export default function Detail() {
         .then(res => res.json())
         .then(() => {
             alert('글이 삭제되었습니다');
-            redirect('/');
+            navigate("/");
         })
         .catch((error) => console.error('Error deleting post:', error));
         setDeleteModalIsOpen(false);
