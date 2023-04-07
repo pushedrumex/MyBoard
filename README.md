@@ -77,7 +77,7 @@ Backend : Spring Boot, Mysql, JPA
     
     `GET localhost:8080/posts/:id`
     
-    ``
+    ```
     {
         id: 1,
         title: '제목',
